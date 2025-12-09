@@ -3,6 +3,7 @@ import pandas as pd
 import pickle
 import numpy as np
 from io import StringIO
+import os
 
 st.set_page_config(
     page_title="NBA MVP Predictor",
@@ -123,7 +124,8 @@ st.markdown(
 # -----------------------------------------------------------------------------
 @st.cache_resource
 def load_model():
-    with open("mvp_model.pkl", "rb") as f:
+    MODEL_PATH = os.path.join(os.path.dirname(__file__), "mvp_model.pkl")
+    with open(MODEL_PATH, "rb") as f:
         return pickle.load(f)
 
 
