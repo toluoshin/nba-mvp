@@ -119,9 +119,6 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-# -----------------------------------------------------------------------------
-# Model Loader
-# -----------------------------------------------------------------------------
 @st.cache_resource
 def load_model():
     MODEL_PATH = os.path.join(os.path.dirname(__file__), "mvp_model.pkl")
@@ -129,7 +126,6 @@ def load_model():
         return pickle.load(f)
 
 
-# Try loading model once and show a friendly error if missing
 try:
     model_pkg = load_model()
     model = model_pkg["model"]
@@ -141,9 +137,6 @@ except Exception as e:
     )
     st.stop()
 
-# -----------------------------------------------------------------------------
-# Sidebar – App Info & Instructions
-# -----------------------------------------------------------------------------
 with st.sidebar:
     st.markdown("## 🏀 NBA MVP Predictor")
     st.markdown(
@@ -188,9 +181,6 @@ with st.sidebar:
         unsafe_allow_html=True,
     )
 
-# -----------------------------------------------------------------------------
-# Main Header
-# -----------------------------------------------------------------------------
 st.title("🏆 NBA MVP Predictor Dashboard")
 
 st.markdown(
@@ -236,9 +226,6 @@ if uploaded_file is None:
     )
     st.stop()
 
-# -----------------------------------------------------------------------------
-# Data Ingestion & Preview
-# -----------------------------------------------------------------------------
 try:
     df = pd.read_csv(uploaded_file)
 except Exception as e:
@@ -286,9 +273,6 @@ if missing_core_cols:
 
 st.markdown("---")
 
-# -----------------------------------------------------------------------------
-# Prediction Trigger
-# -----------------------------------------------------------------------------
 center_col = st.columns([1, 1, 1])[1]
 with center_col:
     run_prediction = st.button("🔮 Predict MVP", type="primary", use_container_width=True)
@@ -296,9 +280,6 @@ with center_col:
 if not run_prediction:
     st.stop()
 
-# -----------------------------------------------------------------------------
-# Feature Engineering & Prediction
-# -----------------------------------------------------------------------------
 with st.spinner("Computing advanced metrics and generating MVP scores..."):
     df = df.copy()
     df = df.fillna(0)
@@ -348,9 +329,6 @@ with st.spinner("Computing advanced metrics and generating MVP scores..."):
 
 st.success("✅ Predictions complete!")
 
-# -----------------------------------------------------------------------------
-# Top 5 MVP Candidates (Interactive Tabs)
-# -----------------------------------------------------------------------------
 st.subheader("🏅 Top 5 MVP Candidates")
 
 top_5_results = results.head(5)
@@ -429,9 +407,6 @@ else:
     st.info("Run a prediction to see the top MVP candidates here.")
 
 
-# -----------------------------------------------------------------------------
-# Highlight Predicted MVP
-# -----------------------------------------------------------------------------
 if len(results) > 0:
     st.markdown("---")
     st.subheader("👑 Predicted MVP")
@@ -456,9 +431,6 @@ if len(results) > 0:
             f"**Per-game stats:** {mvp['PPG']:.1f} PPG • {mvp['RPG']:.1f} RPG • {mvp['APG']:.1f} APG"
         )
 
-# -----------------------------------------------------------------------------
-# Download Section
-# -----------------------------------------------------------------------------
 st.markdown("---")
 st.subheader("📥 Download Full Prediction Results")
 
