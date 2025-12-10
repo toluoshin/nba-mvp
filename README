@@ -1,0 +1,5 @@
+# NBA MVP Prediction Model
+
+1) Run <code> streamlit run app.py </code> in terminal to launch the application:
+
+2) Upload the data in <code> nba_stats_demo.csv </code> and run the predictions
